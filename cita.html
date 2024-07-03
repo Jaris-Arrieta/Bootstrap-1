@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">  
+  <link rel="shortcut icon" href="./img/fav.png" type="image/x-icon">  
+  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">  
+  <title>La Concepcion</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
+    body {
+        background-color: #DBEAFE;
+        font-family: "Questrial", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+    .sidebar {
+        height: 100vh;
+        background-color: #00163B;
+        color: #fff;
+        position: fixed;
+        width: 250px;
+        top: 0;
+        left: 0;
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000; /* Asegura que el sidebar esté siempre por encima */
+    }
+    .sidebar a {
+        color: #adb5bd;
+    }
+    .sidebar a:hover {
+        color: #fff;
+    }
+    .sidebar .active {
+        background-color: #00ACBA;
+        color: #00163B;
+    }
+    .main-content {
+        margin-left: 250px;
+        transition: margin-left 0.3s ease-in-out;
+    }
+    .card-header {
+        background-color: #00163B;
+        color: #FFF;
+    }
+    .card {
+        margin-bottom: 20px;
+    }
+    .icon {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+    .overview-card {
+        padding: 10px;
+        color: #fff;
+    }
+    .overview-card h5 {
+        font-size: 1.2rem;
+    }
+    .navbar {
+        margin-left: 250px;
+        background-color: #fff;
+        transition: margin-left 0.3s ease-in-out;
+    }
+    .navbar .navbar-brand {
+        color: #000F29;
+    }
+    .navbar .navbar-brand:hover {
+        color: #00163B;
+    }
+    .navbar .form-control {
+        background-color: #DBEAFE;
+        color: #fff;
+    }
+    .bg-cero{
+        background-color: #00163B;
+    }
+    .bg-one {
+        background-color: #6599FF;
+    }
+    .bg-two {
+        background-color: #48DAB3;
+    }
+    .bg-three {
+        background-color: #22B8F7;
+    }
+    .bg-four {
+        background-color: #8565FE;
+    }
+    @media (max-width: 768px) {
+        .sidebar {
+            transform: translateX(-100%);
+        }
+        .sidebar.show {
+            transform: translateX(0);
+        }
+        .main-content, .navbar {
+            margin-left: 0;
+        }
+        .navbar {
+            margin-right: 0;
+        }
+    }
+    .profile-img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+    .crud-icons i {
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin: 0 5px;
+        
+    }
+    .crud-icons i:hover {
+        color: #000;
+    }
+    ul{
+        li{
+            list-style: none;
+        }
+    }
+</style>
+</head>
+<body class="bg-gray-100">
+
+
+<!-- start navbar -->
+<div class="md:fixed md:w-full md:top-0 md:z-20 flex flex-row flex-wrap items-center bg-white p-6 border-b border-gray-300">
+    
+    <!-- logo -->
+    <div class="flex-none w-56 flex flex-row items-center">
+      <img src="images/logo.png" width="62px">
+      
+
+      <button id="sliderBtn" class="flex-none text-right text-gray-900 hidden md:block">
+        <i class="fad fa-list-ul"></i>
+      </button>
+    </div>
+    <!-- end logo -->   
+    
+    <!-- navbar content toggle -->
+    <button id="navbarToggle" class="hidden md:block md:fixed right-0 mr-6">
+      <i class="fad fa-chevron-double-down"></i>
+    </button>
+    <!-- end navbar content toggle -->
+
+    <!-- navbar content -->
+    <div id="navbar" class="animated md:hidden md:fixed md:top-0 md:w-full md:left-0 md:mt-16 md:border-t md:border-b md:border-gray-200 md:p-10 md:bg-white flex-1 pl-3 flex flex-row flex-wrap justify-between items-center md:flex-col md:items-center">
+      <!-- left -->
+      <div class="text-gray-600 md:w-full md:flex md:flex-row md:justify-evenly md:pb-10 md:mb-10 md:border-b md:border-gray-200">
+        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-envelope-open-text"></i></a>        
+        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-comments-alt"></i></a>        
+        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-check-circle"></i></a>        
+        <a class="mr-2 transition duration-500 ease-in-out hover:text-gray-900" href="#" title="email"><i class="fad fa-calendar-exclamation"></i></a>        
+      </div>
+      <!-- end left -->      
+
+      <!-- right -->
+      <div class="flex flex-row-reverse items-center"> 
+
+        <!-- user -->
+        <div class="dropdown relative md:static">
+
+          <button class="menu-btn focus:outline-none focus:shadow-outline flex flex-wrap items-center">
+            <div class="w-8 h-8 overflow-hidden rounded-full">
+              <img class="w-full h-full object-cover" src="img/user.svg" >
+            </div> 
+
+            <div class="ml-2 capitalize flex ">
+              <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">Perfil</h1>
+              <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
+            </div>                        
+          </button>
+
+          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+
+          <div class="text-gray-500 menu hidden md:mt-10 md:w-full rounded bg-white shadow-md absolute z-20 right-0 w-40 mt-5 py-2 animated faster">
+
+            <!-- item -->
+            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#">
+              <i class="fad fa-user-edit text-xs mr-1"></i> 
+              editar mi perfil
+            </a>     
+            <!-- end item -->
+
+            <!-- item -->
+            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#">
+              <i class="fad fa-inbox-in text-xs mr-1"></i> 
+              bandeja de entrada
+            </a>     
+            <!-- end item -->
+
+            <!-- item -->
+            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#">
+              <i class="fad fa-badge-check text-xs mr-1"></i> 
+              tareas
+            </a>     
+            <!-- end item -->
+
+            <!-- item -->
+            <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out" href="#">
+              <i class="fad fa-comment-alt-dots text-xs mr-1"></i> 
+              chats
+            </a>     
+            <!-- end item -->
+
+            <hr>
+
+
+          </div>
+        </div>
+        <!-- end user -->
+
+        <!-- notifcation -->
+        <div class="dropdown relative mr-5 md:static">
+
+          <button class="text-gray-500 menu-btn p-0 m-0 hover:text-gray-900 focus:text-gray-900 focus:outline-none transition-all ease-in-out duration-300">
+            <i class="fad fa-bells"></i>               
+          </button>
+
+          <button class="hidden fixed top-0 left-0 z-10 w-full h-full menu-overflow"></button>
+
+          <div class="menu hidden rounded bg-white md:right-0 md:w-full shadow-md absolute z-20 right-0 w-84 mt-5 py-2 animated faster">
+            <!-- top -->
+            <div class="px-4 py-2 flex flex-row justify-between items-center capitalize font-semibold text-sm">
+              <h1>notificaciones</h1>
+              <div class="bg-teal-100 border border-teal-200 text-teal-500 text-xs rounded px-1">
+                <strong>5</strong>
+              </div>
+            </div>
+            <hr>
+            <!-- end top -->
+
+            <!-- body -->
+
+            <!-- item -->
+            <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out" href="#">
+
+              <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+                <img src="images/comunidad.png" >
+              </div>
+             
+
+              <div class="flex-1 flex flex-rowbg-green-100">
+                <div class="flex-1">
+                  <h1 class="text-sm font-semibold">encuesta..</h1>
+                  <p class="text-xs text-gray-500">ver mas</p>
+                </div>
+                <div class="text-right text-xs text-gray-500">
+                  <p>hace 4 minutos</p>
+                </div>
+              </div>
+
+            </a>
+            <hr>
+            <!-- end item -->
+
+            <!-- item -->
+            <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out" href="#">
+
+              <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+                <i class="fad fa-user-circle text-sm"></i>
+              </div>
+
+              <div class="flex-1 flex flex-rowbg-green-100">
+                <div class="flex-1">
+                  <h1 class="text-sm font-semibold">Mohamed..</h1>
+                  <p class="text-xs text-gray-500">ver mas</p>
+                </div>
+                <div class="text-right text-xs text-gray-500">
+                  <p>hace 78 minutos</p>
+                </div>
+              </div>
+
+            </a>
+            <hr>
+            <!-- end item -->
+
+            <!-- item -->
+            <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out" href="#">
+
+              <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+                <i class="fad fa-images text-sm"></i>
+              </div>
+
+              <div class="flex-1 flex flex-rowbg-green-100">
+                <div class="flex-1">
+                  <h1 class="text-sm font-semibold">nueva imagen..</h1>
+                  <p class="text-xs text-gray-500">ver mas</p>
+                </div>
+                <div class="text-right text-xs text-gray-500">
+                  <p>hace 65 minutos</p>
+                </div>
+              </div>
+
+            </a>
+            <hr>
+            <!-- end item -->
+
+            <!-- item -->
+            <a class="flex flex-row items-center justify-start px-4 py-4 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 transition-all duration-300 ease-in-out" href="#">
+
+              <div class="px-3 py-2 rounded mr-3 bg-gray-100 border border-gray-300">
+                <i class="fad fa-alarm-exclamation text-sm"></i>
+              </div>
+
+              <div class="flex-1 flex flex-rowbg-green-100">
+                <div class="flex-1">
+                  <h1 class="text-sm font-semibold">el tiempo a terminada..</h1>
+                  <p class="text-xs text-gray-500">ver mas</p>
+                </div>
+                <div class="text-right text-xs text-gray-500">
+                  <p>hace 1 minuto</p>
+                </div>
+              </div>
+
+            </a>
+            <!-- end item -->
+
+
+            <!-- end body -->
+
+            <!-- bottom -->
+            <hr>
+            <div class="px-4 py-2 mt-2">
+              <a href="#" class="border border-gray-300 block text-center text-xs uppercase rounded p-1 hover:text-teal-500 transition-all ease-in-out duration-500">
+                ver todo
+              </a>
+            </div>
+            <!-- end bottom -->            
+          </div>
+        </div>
+        <!-- end notifcation -->
+
+                     
+
+
+      </div>
+      <!-- end right -->
+    </div>
+    <!-- end navbar content -->
+
+  </div>
+<!-- end navbar -->
+
+
+<!-- strat wrapper -->
+<div class="h-screen flex flex-row flex-wrap">
+  
+    <!-- start sidebar -->
+  <div id="sideBar" class="relative flex flex-col flex-wrap bg-white border-r border-gray-300 p-6 flex-none w-64 md:-ml-64 md:fixed md:top-0 md:z-30 md:h-screen md:shadow-xl animated faster">
+    
+
+    <!-- sidebar content -->
+    <div class="flex flex-col">
+
+      <!-- sidebar toggle -->
+      <div class="text-right hidden md:block mb-4">
+        <button id="sideBarHideBtn">
+          <i class="fad fa-times-circle"></i>
+        </button>
+      </div>
+      <!-- end sidebar toggle -->
+
+      <p class="uppercase text-xs text-gray-600 mb-4 tracking-wider">homes</p>
+
+      <!-- link -->
+      <a href="dashboard.html" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fad fa-chart-pie text-xs mr-2"></i>                
+        Inicio
+      </a>
+      <!-- end link -->
+       <!-- link -->
+      <a href="./personal.html" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+        <i class="fad fa-shopping-cart text-xs mr-2"></i>
+        Personal
+      </a>
+      <!-- end link -->
+
+
+    <!-- link -->
+    <a href="./paciente.html" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <i class="fad fa-envelope-open-text text-xs mr-2"></i>
+      Paciente
+    </a>
+    <!-- end link -->
+
+
+    <!-- link -->
+    <a href="orden.html" class="mb-3 capitalize font-medium text-sm hover:text-teal-600 transition ease-in-out duration-500">
+      <i class="fad fa-cricket text-xs mr-2"></i>
+      Orden
+    </a>
+    <!-- end link -->
+      
+
+    </div>
+    <!-- end sidebar content -->
+
+  </div>
+  <!-- end sidbar -->
+
+  <!-- Main Content -->
+  <div class="main-content p-4">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>Nueva Cita Médica</h1>
+        </div>
+       <div class="card card-custom border-0 p-3">
+        <form>
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
+          </div>
+          <div class="mb-3">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="apellido" placeholder="Ingresa tu apellido" required>
+          </div>
+          <div class="mb-3">
+            <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+            <input type="date" class="form-control" id="fechaNacimiento" required>
+          </div>
+          <div class="mb-3">
+            <label for="genero" class="form-label">Género</label>
+            <select class="form-select" id="genero" required>
+              <option value="">Selecciona tu género</option>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="correo" class="form-label">Correo Electrónico</label>
+            <input type="email" class="form-control" id="correo" placeholder="nombre@ejemplo.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="telefono" class="form-label">Número de Teléfono</label>
+            <input type="tel" class="form-control" id="telefono" placeholder="123-456-7890" required>
+          </div>
+          <div class="mb-3">
+            <label for="tipoConsulta" class="form-label">Tipo de Consulta</label>
+            <select class="form-select" id="tipoConsulta" required>
+              <option value="">Selecciona el tipo de consulta</option>
+              <option value="general">Consulta General</option>
+              <option value="especialista">Consulta con Especialista</option>
+              <option value="urgencias">Urgencias</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="fechaPreferida" class="form-label">Fecha Preferida</label>
+            <input type="date" class="form-control" id="fechaPreferida" required>
+          </div>
+          <div class="mb-3">
+            <label for="horaPreferida" class="form-label">Hora Preferida</label>
+            <input type="time" class="form-control" id="horaPreferida" required>
+          </div>
+          <div class="mb-3">
+            <label for="notas" class="form-label">Notas Adicionales</label>
+            <textarea class="form-control" id="notas" rows="3" placeholder="Ingresa cualquier información adicional"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar Solicitud</button>
+        </form>
+
+       </div> 
+      
+
+    </div>
+</div>
+
+</div>
+<!-- end wrapper --> 
+
+
+
+<!-- script -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="js/scripts.js"></script>
+<!-- end script -->
+
+</body>
+</html>
